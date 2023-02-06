@@ -1,0 +1,35 @@
+{
+
+    "name": "janfix/extension-geogebra",
+    "description": "GeoGebra extension - installer for TAO",
+    "type": "tao-extension",
+    "authors": [{
+        "name": "Jean-Philippe Rivière"
+    }],
+    "keywords": [
+        "tao",
+        "computer-based-assessment",
+        "Mathematics",
+        "GeoGebra"
+    ],
+    "homepage": "https://www.wiquid.fr",
+    "license": [
+        "GPL-2.0-only"
+    ],
+    "extra": {
+        "tao-extension-name": "geogebra"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "oat-sa/oatbox-extension-installer": "~1.1||dev-master",
+        "oat-sa/tao-core": ">=47.0.0",
+        "oat-sa/generis": ">=14.0.0",
+        "oat-sa/extension-tao-testqti": ">=41.0.0",
+        "oat-sa/extension-tao-itemqti-pci": ">=7.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "oat\\geogebra\\": ""
+        }
+    }
+}
