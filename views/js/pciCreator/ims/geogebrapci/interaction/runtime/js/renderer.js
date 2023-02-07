@@ -15,7 +15,7 @@ define(['taoQtiItem/portableLib/jquery_2_1_1',
     'use strict';
 
     function renderChoices(pciObj, $container, config) {
-        
+       
         instancer.ggb(pciObj, $container, config);
         
     }

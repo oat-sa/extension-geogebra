@@ -40,8 +40,8 @@ define(['qtiCustomInteractionContext',
              * @param {Object} [state] - the json serialized state object, returned by previous call to getStatus(), use to initialize an
              */
             getInstance: function getInstance(dom, config, state) {
-                
                 var response = config.boundTo;
+                
                 config.properties.param = JSON.parse(config.properties.param)
                 config.properties.resp = JSON.parse(config.properties.resp)
 
@@ -159,9 +159,11 @@ define(['qtiCustomInteractionContext',
              * @param {Object} interaction
              */
             destroy: function () {
-                if (typeof this.api !== "undefined") {
-                    this.api.remove();
+                if (typeof this.previewApplet !== "undefined") {
+                    this.previewApplet.remove();
                 }
+                
+                //window.ggbApplet.remove()
 
                 var $container = $(this.dom);
                 $container.off().empty();
@@ -201,6 +203,7 @@ define(['qtiCustomInteractionContext',
                 
                 //renderer.render(_this, _this.dom, _this.config, assetManager);
                 renderer.render(_this, _this.dom, config, assetManager);
+                
                 
                 //Listening to Change Data called from Question after changing values for config
                 this.on('dataChange', function (conf) {
@@ -265,7 +268,8 @@ define(['qtiCustomInteractionContext',
 
                             } else {
                                 // Fail code
-                               
+                                console.log(data.thumbUrl);
+                                console.log('No valid Thumbnail found ! Sorry')
                                 $('#miniat').html("");
                             }
                         });
@@ -326,9 +330,13 @@ define(['qtiCustomInteractionContext',
 
                     setTimeout(() => {
                         $(_this.dom).find(".groupPanel").removeAttr("style");
+
+                        // $(_this.dom).find(".groupPanel").css("backgroundColor", "red");
                         $(_this.dom).find(".groupPanel").css("width", "");
+
                         $(_this.dom).find(".mowColorPlusButton").css("width", "");
                         $(_this.dom).find(".mowColorPlusButton").css("top", "");
+                        //$(_this.dom).find(".groupPanel").css("width", "360px!important"); 
                     }, 500);
                 });
 

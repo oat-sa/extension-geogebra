@@ -383,9 +383,11 @@
                         web3d.succeeded = web3d.succeeded || web3d() //JANFIX : Here is the launcher
                     }
                     scriptLoaded()
-                    console.log("JPTRACKER1")
+                    console.log("JPTRACKER100")
                        
-                } else if (html5Codebase.requirejs) { require(["geogebra/runtime/js/web3d/web3d.nocache"], scriptLoaded); } else { // original
+                } else if (html5Codebase.requirejs) { 
+                    //require(["geogebra/runtime/js/web3d/web3d.nocache"], scriptLoaded); 
+                } else { // original
                     script.onload = scriptLoaded;
                     appletElem.appendChild(script)
                     console.log("JPTRACKER2")

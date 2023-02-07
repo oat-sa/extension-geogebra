@@ -13,13 +13,15 @@ define(['GGBPCI/interaction/runtime/js/lib/deployggb'], function(GGBApplet) {
     'use strict';
 
     function instancer(pciObj, $container, config) {
+       
         var ggbdom = "ggb_" + Date.now();
         $container.find(".GGBPCI").append('<div class=' + ggbdom + '></div>');
 
         if ($container.parent().hasClass('widget-box')) {
-           
+            
             initGGB(config);
         } else {
+            
             previeGGBPCI(config)
         }
 
@@ -51,6 +53,7 @@ define(['GGBPCI/interaction/runtime/js/lib/deployggb'], function(GGBApplet) {
         function initGGB(config) {
             if (config.param.filename.length > 0) {
                 var ggbApp = new GGBApplet({
+                    id: "ggbAssess",
                     filename: config.param.filename,
                     detachKeyboard: false,
                     appName: config.param.appName,
@@ -87,10 +90,9 @@ define(['GGBPCI/interaction/runtime/js/lib/deployggb'], function(GGBApplet) {
                 ggbApp.inject(ggbdom);
                 cssCorrecter();
 
-
-
             } else {
                 var ggbApp = new GGBApplet({
+                    id: "ggbAssess",
                     detachKeyboard : false,
                     appName : config.param.appName,
                     showToolBar : config.param.showToolBar,
@@ -129,8 +131,9 @@ define(['GGBPCI/interaction/runtime/js/lib/deployggb'], function(GGBApplet) {
         }
 
         function previeGGBPCI(config) {
-
+        
             var ggbApp = new GGBApplet({
+                id: "ggbAssess",
                 detachKeyboard: false,
                 appName: config.param.appName,
                 showToolBar: config.param.showToolBar,
@@ -161,12 +164,11 @@ define(['GGBPCI/interaction/runtime/js/lib/deployggb'], function(GGBApplet) {
                         pciObj.previewApplet = api;
                     } else {
                         pciObj.previewApplet = api;
-                    }
+                    }                   
                 }
             }, true);
             
             ggbApp.inject(ggbdom);
-
             cssCorrecter()
 
         }
