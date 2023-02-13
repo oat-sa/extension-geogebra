@@ -15,33 +15,25 @@
         "cardinality": "single"
     },
     "runtime": {
-        "hook": "interaction/runtime/js/GGBInteraction.js",
+        "hook": "interaction/runtime/js/GGBInteraction.min.js",
         "modules": {
-            "GGBPCI/interaction/runtime/js/GGBInteraction": [
-                "interaction/runtime/js/GGBInteraction.js"
-            ],
-            "GGBPCI/interaction/runtime/js/renderer": [
-                "interaction/runtime/js/renderer.js"
-            ],
-            "GGBPCI/interaction/runtime/js/instancer": [
-                "interaction/runtime/js/instancer.js"
-            ],
-            "GGBPCI/interaction/runtime/js/lib/deployggb": [
-                "interaction/runtime/js/lib/deployggb.js"
+            "GGBPCI/interaction/runtime/js/GGBInteraction.min": [
+                "interaction/runtime/js/GGBInteraction.min.js"
             ]
-
         },
+        "stylesheets": [
+            "./interaction/runtime/css/wggb.css"
+        ],
         "src": [
             "./interaction/runtime/js/GGBInteraction.js",
             "./interaction/runtime/js/renderer.js",
             "./interaction/runtime/js/instancer.js",
-            "./interaction/runtime/js/lib/deployggb.js",
-            "./interaction/runtime/css/wggb.css"
+            "./interaction/runtime/js/lib/deployggb.js"
         ]
     },
     "creator": {
         "icon": "./interaction/creator/img/icon.svg",
-        "hook": "./imsPciCreator.js",
+        "hook": "./imsPciCreator.min.js",
         "src": [
             "./imsPciCreator.js",
             "./interaction/creator/tpl/markup.tpl",
