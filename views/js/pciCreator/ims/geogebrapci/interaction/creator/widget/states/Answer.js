@@ -15,17 +15,36 @@ define([
 ], function(stateFactory, Answer, answerStateHelper) {
 
     var GGBPCIStateAnswer = stateFactory.extend(Answer, function() {
+        console.log("FROM Answer SCRIPT !")
+        
+        
+        var interaction = this.widget.element;
+        const item =  interaction.getRootElement(),rp = item.responseProcessing;
 
         //forward to one of the available sub state, according to the response processing template
-        answerStateHelper.forward(this.widget, {
-            rpTemplates: ['NONE', 'MATCH_CORRECT'],
-        });
-        var interaction = this.widget.element;
+        answerStateHelper.forward(this.widget, {rpTemplates: ['NONE', 'MATCH_CORRECT','CUSTOM']});
+
+        interaction.rootElement.responseProcessing.processingType = "custom";
+        
+
+        console.log(this)
+
+        
 
         //interaction.triggerPci('RProcessingChange', ["answer"]); // Send it to AMD for action
-        //var responseDeclaration = interaction.getResponseDeclaration();
+        var responseDeclaration = interaction.getResponseDeclaration();
+        console.log(responseDeclaration)
 
     }, function() {
+        //THIS WORKS GETTING OUT OF THE ANSWER SYSTEM
+        var widget = this.widget;
+        var interaction = widget.element;
+        //Fixing Custom option in Listbox - Make it append if exit and back to Answering system
+       
+        //interaction.rootElement.responseProcessing.processingType = "templateDriven";
+
+        answerStateHelper.initResponseForm(this.widget, {rpTemplates: ['NONE', 'MATCH_CORRECT','CUSTOM']});
+       
 
     });
 
@@ -33,12 +52,17 @@ define([
 
         var interaction = this.widget.element;
         interaction.resetResponse();
+        console.log(this.widget)
+        console.log(answerStateHelper)
+        console.log(answerStateHelper.initResponseForm)
 
-        answerStateHelper.initResponseForm(
-            this.widget, {
-                rpTemplates: ['NONE', 'MATCH_CORRECT'],
-            }
-        );
+       interaction.rootElement.responseProcessing.processingType = "NoRp";
+       
+        answerStateHelper.initResponseForm(this.widget, {rpTemplates: ['NONE', 'MATCH_CORRECT','CUSTOM']});
+        
+       
+
+
     };
 
     return GGBPCIStateAnswer;

@@ -28,6 +28,9 @@ define([
         console.log(responseDeclaration.template) ;
         responseDeclaration.attributes.baseType = "string";
 
+        //Fixing Custom option in Listbox
+        interaction.rootElement.responseProcessing.processingType = "norp";
+
         interaction.triggerPci('RProcessingChange', ["answer"]); // Send it to AMD for action
         
 

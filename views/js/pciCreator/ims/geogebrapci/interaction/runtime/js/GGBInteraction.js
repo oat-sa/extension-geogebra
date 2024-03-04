@@ -14,7 +14,7 @@ This is the IMS Version of GeoGebra PCI for TAO Advanced
 define(['qtiCustomInteractionContext',
     'taoQtiItem/portableLib/jquery_2_1_1',
     'GGBPCI/interaction/runtime/js/renderer',
-    'OAT/util/event',
+    'taoQtiItem/portableLib/OAT/util/event',
     'GGBPCI/interaction/runtime/js/instancer',
     'css!GGBPCI/interaction/runtime/css/wggb'
 ],
@@ -106,7 +106,10 @@ define(['qtiCustomInteractionContext',
 
                     if (this.config.param.RProcessing == "MCorrect") {
                         return { base: { integer: value.correct } };
-                    } else {
+                    } else if(this.config.param.RProcessing == "Custom"){
+                      return { base: { integer:(value.correct*4) } };
+                    }
+                    else {
 
                         return { base : {string : 
                         '{'+
@@ -127,27 +130,6 @@ define(['qtiCustomInteractionContext',
                         '}'
                             }
                         }
-
-                        /* return {
-                            record: [
-                                {
-                                    name: "correct",
-                                    base: { boolean: value.correct },
-                                },
-                                {
-                                    name: "answers",
-                                    list: [value.answers]
-                                },
-                                {
-                                    name: "score",
-                                    base: { integer: value.score }
-                                },
-                                {
-                                    name: "applet",
-                                    base: { string: value.previewApplet }
-                                }
-                            ]
-                        } */
                     }
                 }
             },

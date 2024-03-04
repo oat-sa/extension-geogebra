@@ -14,11 +14,14 @@ define([
     'GGBPCI/interaction/creator/widget/states/Question',
     'GGBPCI/interaction/creator/widget/states/Answer',
     'GGBPCI/interaction/creator/widget/states/Correct',
-    'GGBPCI/interaction/creator/widget/states/NoRp'
+    'GGBPCI/interaction/creator/widget/states/NoRp',
+    'GGBPCI/interaction/creator/widget/states/Custom'
+  
 ], function(factory, states) {
     'use strict';
-
-    return factory.createBundle(states, arguments, ['MATCH_CORRECT', "NONE"]); // Cancel Question/answer buttons
+    console.log("FROM STATES")
+    console.log(states)
+    return factory.createBundle(states, arguments,['Correct','NoRp','Custom']); // Cancel Question/answer buttons
     //Possible templates are :
     //'CUSTOM' - 'MATCH_CORRECT' - 'MAP_RESPONSE'  - 'MAP_RESPONSE_POINT' - 'NONE'
 

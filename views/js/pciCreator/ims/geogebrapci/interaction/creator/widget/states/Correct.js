@@ -15,6 +15,8 @@ define([
 ], function(stateFactory, Correct, answerStateHelper, _) {
 
     var GGBPCIStateCorrect = stateFactory.create(Correct, function() {
+
+        console.log("Loading MAthc Correct");
         var widget = this.widget;
         var interaction = widget.element;
 
@@ -27,11 +29,8 @@ define([
         //THIS CUSTOM CODE GENERATE ERROR MANAGING THE XML MODIFICATION. BETTER KEEP THE DEFAULT !
 
         answerStateHelper.initResponseForm(
-            this.widget, {
-                rpTemplates: ['MATCH_CORRECT', 'NONE'],
-            }
+            this.widget
         );
-
 
         interaction.triggerPci('RProcessingChange', ["MCorrect"]); // Send it to AMD for action
 
@@ -45,6 +44,10 @@ define([
 
         interaction.resetResponse();
         interaction.offPci('.question');
+
+        console.log("CallBack Match Correct")
+
+        answerStateHelper.initResponseForm(this.widget, {rpTemplates: ['CUSTOM', 'NONE', 'MATCH_CORRECT']});
     });
 
     return GGBPCIStateCorrect;
