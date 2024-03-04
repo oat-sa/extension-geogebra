@@ -11,3 +11,6 @@ Go to the root of your TAO application.
 Launch a composer command : composer require janfix/extension-geogebra:v1.0.0
 
 Once the download is done, go to your TAO application (you need the admin rights) go to the extension manager and activate de GeoGebra extension.
+
+# More info for this version
+If you want more details go to : https://www.geogebra.org/m/cwbstkcr
