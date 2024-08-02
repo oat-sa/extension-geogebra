@@ -41,10 +41,7 @@
             "./interaction/creator/widget/Widget.js",
             "./interaction/creator/widget/states/states.js",
             "./interaction/creator/widget/states/Question.js",
-            "./interaction/creator/widget/states/Answer.js",
-            "./interaction/creator/widget/states/Correct.js",
-            "./interaction/creator/widget/states/NoRp.js",
-            "./interaction/creator/widget/states/Custom.js"
+            "./interaction/creator/widget/states/Answer.js"
         ]
     }
 }
