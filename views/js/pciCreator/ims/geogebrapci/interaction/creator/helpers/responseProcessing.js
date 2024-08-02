@@ -49,8 +49,8 @@ define(['jquery', 'tpl!GGBPCI/interaction/creator/tpl/responseProcessing'], func
         hasCustomResponseProcessing(interaction) {
             const responseProcessing = responseProcessingHelpers.getResponseProcessing(interaction);
             return (
-                responseProcessing.processingType !== CUSTOM_RESPONSE_PROCESSING ||
-                !$(responseProcessing.xml).find('fieldValue[fieldIdentifier="candidateResponse"]').length
+                responseProcessing.processingType === CUSTOM_RESPONSE_PROCESSING &&
+                $(responseProcessing.xml).find('fieldValue[fieldIdentifier="candidateResponse"]').length > 0
             );
         },
 
