@@ -10,10 +10,11 @@ define([
     'taoQtiItem/qtiCreator/widgets/states/factory',
     'taoQtiItem/qtiCreator/widgets/interactions/states/Question',
     'taoQtiItem/qtiCreator/widgets/helpers/formElement',
+    'GGBPCI/interaction/creator/helpers/responseProcessing',
     'tpl!GGBPCI/interaction/creator/tpl/propertiesForm',
     'lodash',
     'taoQtiItem/portableLib/jquery_2_1_1',
-], function(stateFactory, Question, formElement, formTpl, _, $) {
+], function(stateFactory, Question, formElement, responseProcessingHelpers, formTpl, _, $) {
     'use strict';
 
     var GGBPCIStateQuestion = stateFactory.extend(Question, function initQuestionState() {
@@ -178,11 +179,12 @@ define([
 
 
 
-        //init data change callbacks
+        // Make sure to update the response processing when the identifier is changed
         formElement.setChangeCallbacks(Sform, interaction, {
-            identifier: function(i, value) {
+            identifier(i, value) {
                 response.id(value);
                 interaction.attr('responseIdentifier', value);
+                responseProcessingHelpers.setResponseProcessing(interaction);
             }
         });
 

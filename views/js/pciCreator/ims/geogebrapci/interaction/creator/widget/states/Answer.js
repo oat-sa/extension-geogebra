@@ -11,8 +11,8 @@ define([
     'taoQtiItem/qtiCreator/widgets/states/factory',
     'taoQtiItem/qtiCreator/widgets/interactions/states/Answer',
     'taoQtiItem/qtiCreator/widgets/interactions/helpers/answerState',
-    'taoQtiItem/qtiCreator/widgets/helpers/content'
-], function(stateFactory, Answer, answerStateHelper) {
+    'GGBPCI/interaction/creator/helpers/responseProcessing',
+], function(stateFactory, Answer, answerStateHelper, responseProcessingHelpers) {
 
     var GGBPCIStateAnswer = stateFactory.extend(Answer, function initAnswerState() {
         // set it to the answer state
@@ -24,7 +24,14 @@ define([
 
     GGBPCIStateAnswer.prototype.initResponseForm = function initResponseForm() {
         // Remove any possibility to change the response processing template
-        answerStateHelper.initResponseForm(this.widget, {rpTemplates : ['CUSTOM']});
+        answerStateHelper.initResponseForm(this.widget, { rpTemplates: ['CUSTOM'] });
+
+        // Make sure to update the response processing when the identifier is changed
+        this.widget.$responseForm.on(
+            'change.databinding keyup.databinding',
+            'input[name="identifier"]',
+            () => responseProcessingHelpers.setResponseProcessing(this.widget.element)
+        );
     };
 
     return GGBPCIStateAnswer;
