@@ -11,8 +11,8 @@
         "GeoGebra, math, geometry, 3D"
     ],
     "response": {
-        "baseType": "integer",
-        "cardinality": "single"
+        "baseType": "record",
+        "cardinality": "record"
     },
     "runtime": {
         "hook": "interaction/runtime/js/GGBInteraction.min.js",
