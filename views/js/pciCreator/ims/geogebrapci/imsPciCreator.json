@@ -36,6 +36,7 @@
             "./imsPciCreator.js",
             "./interaction/creator/tpl/markup.tpl",
             "./interaction/creator/tpl/propertiesForm.tpl",
+            "./interaction/creator/tpl/responseProcessing.tpl",
             "./interaction/creator/widget/Widget.js",
             "./interaction/creator/widget/states/states.js",
             "./interaction/creator/widget/states/Question.js",
