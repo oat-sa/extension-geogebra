@@ -10,18 +10,23 @@ A GeoGebra production - Dynamic Mathematics for Everyone, http://www.geogebra.or
 
 define([
     'taoQtiItem/qtiCreator/widgets/interactions/customInteraction/Widget',
-    'GGBPCI/interaction/creator/widget/states/states'
-], function(Widget, states) {
+    'GGBPCI/interaction/creator/widget/states/states',
+    'GGBPCI/interaction/creator/helpers/responseProcessing',
+], function(Widget, states, responseProcessingHelpers) {
     'use strict';
 
-    var GGBPCIWidget = Widget.clone();
+    const GGBPCIWidget = Widget.clone();
 
-    GGBPCIWidget.initCreator = function() {
+    GGBPCIWidget.initCreator = function initCreator() {
 
         this.registerStates(states);
 
         Widget.initCreator.call(this);
 
+        if (!responseProcessingHelpers.hasCustomResponseProcessing(this.element)) {
+            responseProcessingHelpers.createResponseOutcomes(this.element.getRootElement());
+            responseProcessingHelpers.setResponseProcessing(this.element);
+        }
     };
 
     return GGBPCIWidget;

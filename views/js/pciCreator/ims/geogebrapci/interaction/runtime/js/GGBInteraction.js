@@ -22,7 +22,7 @@ define(['qtiCustomInteractionContext',
         'use strict';
         // VERSION MODIFIED-IMS-02-02-2023
 
-        var _typeIdentifier = 'GGBPCI'; 
+        var _typeIdentifier = 'GGBPCI';
 
         var GGBInteraction = {
             /*********************************
@@ -41,7 +41,7 @@ define(['qtiCustomInteractionContext',
              */
             getInstance: function getInstance(dom, config, state) {
                 var response = config.boundTo;
-                
+
                 config.properties.param = JSON.parse(config.properties.param)
                 config.properties.resp = JSON.parse(config.properties.resp)
 
@@ -82,56 +82,45 @@ define(['qtiCustomInteractionContext',
              * Get the response in the json format described in
              * http://www.imsglobal.org/assessment/pciv1p0cf/imsPCIv1p0cf.html#_Toc353965343
              *
-             * @param {Object} interaction
              * @returns {Object}
              */
-            getResponse: function getResponse(config) {
+            getResponse() {
+                const value = {};
 
-                var $container = $(this.dom),
-                    value = {},
-                    stringValue,
-                    correct,
-                    validate = 1,
-                    answers,
-                    score,
-                    data;
-                
                 if (typeof this.previewApplet !== "undefined") {
+                    // TODO: make sure to get the correct values from GeoGebra.
+                    // We need these 3 variables to be set in the record object:
+                    // - score: integer
+                    // - maxscore: integer
+                    // - candidateResponse: string (JSON.stringify() if needed)
+                    // Other variables can be added to the record object if needed.
+                    // They will be part both of the response and the state.
                     value.correct = this.previewApplet.getValue("correct")
-                    value.answers = this.previewApplet.getValueString("answers");
+                    value.candidateResponse = this.previewApplet.getValueString("answers");
                     value.score = this.previewApplet.getValue("score");
+                    value.maxscore = this.previewApplet.getValue("maxscore");
                     if (this.config.resp.data) {
-                        value.previewApplet = this.previewApplet.getBase64();
+                        value.applet = this.previewApplet.getBase64();
                     }
 
-                    if (this.config.param.RProcessing == "MCorrect") {
-                        return { base: { integer: value.correct } };
-                    } else if(this.config.param.RProcessing == "Custom"){
-                      return { base: { integer:(value.correct*4) } };
-                    }
-                    else {
+                    // the PCI is declared with a record cardinality, so the response must be a record
+                    return {
+                        record: Object.keys(value).map(name => {
+                            const base = {}
 
-                        return { base : {string : 
-                        '{'+
-                        '    name: "correct",'+
-                        '    base: { boolean: '+value.correct+' },'+
-                        '},'+
-                        '{'+
-                        '    name: "answers",'+
-                        '    list: '+[value.answers]+
-                        '},'+
-                        '{'+
-                        '    name: "score",'+
-                        '    base: { integer: '+value.score+' }'+
-                        '},'+
-                        '{'+
-                        '    name: "applet",'+
-                        '    base: { string: '+value.previewApplet+' }'+
-                        '}'
+                            // variables are either integers or strings (be sure to JSON encode them if needed)
+                            if (typeof value[name] === 'number') {
+                                base.integer = value[name]
+                            } else  {
+                                base.string = value[name]
                             }
-                        }
+                            return { name, base };
+                        })
                     }
                 }
+
+                // no applet, no response, but it still needs to be QTI valid
+                return { base: null };
             },
             /**
              * Reverse operation performed by render()
@@ -144,7 +133,7 @@ define(['qtiCustomInteractionContext',
                 if (typeof this.previewApplet !== "undefined") {
                     this.previewApplet.remove();
                 }
-                
+
                 //window.ggbApplet.remove()
 
                 var $container = $(this.dom);
@@ -176,17 +165,17 @@ define(['qtiCustomInteractionContext',
             initialize: function initialize(id, dom, config, assetManager) {
                 //add method on(), off() and trigger() to the current object
                 event.addEventMgr(this);
-                
+
                 //id = response!!!!
                 var _this = this;
-                       
+
                 _this.config = config || {};
                 _this.dom = dom;
-                
+
                 //renderer.render(_this, _this.dom, _this.config, assetManager);
                 renderer.render(_this, _this.dom, config, assetManager);
-                
-                
+
+
                 //Listening to Change Data called from Question after changing values for config
                 this.on('dataChange', function (conf) {
 
@@ -227,12 +216,6 @@ define(['qtiCustomInteractionContext',
 
                 })
 
-                this.on('RProcessingChange', function (responseProcessing) {
-                    _this.config.param.RProcessing = responseProcessing;
-                    
-                })
-
-                
 
                 //Listening to GGB ID Input and display Thumbnail in lateral Panel - Check Project ID = checkPID
                 this.on('checkPIDChange', function (PID) {
@@ -318,7 +301,7 @@ define(['qtiCustomInteractionContext',
 
                         $(_this.dom).find(".mowColorPlusButton").css("width", "");
                         $(_this.dom).find(".mowColorPlusButton").css("top", "");
-                        //$(_this.dom).find(".groupPanel").css("width", "360px!important"); 
+                        //$(_this.dom).find(".groupPanel").css("width", "360px!important");
                     }, 500);
                 });
 
@@ -367,9 +350,6 @@ define(['qtiCustomInteractionContext',
                 this.on('saveB64Change', function (saveB64) {
                     config.resp.data = saveB64;
                 })
-
-
-
             },
 
             /**
@@ -380,15 +360,8 @@ define(['qtiCustomInteractionContext',
              * @param {Object} response
              */
             setResponse: function setResponse(response) {
-                if (response == "MCorrect") {
-                    if (this.api !== 'undefined') {
-                        var value = this.api.getValue("correct");
-                        this._currentResponse = { base: { integer: value } };
-                    }
-                } else {
-                    alert("in case of ???")
-                }
-
+                // TODO: extract the values from the response, knowing it could be either a {record: []}, a {base: null}
+                // see getResponse() for more details
             },
 
             /**
