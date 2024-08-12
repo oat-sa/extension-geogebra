@@ -21,14 +21,12 @@
                 "interaction/runtime/js/GGBInteraction.min.js"
             ]
         },
-        "stylesheets" : [
-            "./interaction/runtime/css/wggb.css"
-        ],
         "src": [
             "./interaction/runtime/js/GGBInteraction.js",
             "./interaction/runtime/js/renderer.js",
             "./interaction/runtime/js/instancer.js",
-            "./interaction/runtime/js/lib/deployggb.js"
+            "./interaction/runtime/js/lib/deployggb.js",
+            "./interaction/runtime/css/wggb.css"
         ]
     },
     "creator": {
