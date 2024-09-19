@@ -14,3 +14,5 @@ Once the download is done, go to your TAO application (you need the admin rights
 
 # More info for this version
 If you want more details go to : https://www.geogebra.org/m/cwbstkcr
+
+# This is a check
