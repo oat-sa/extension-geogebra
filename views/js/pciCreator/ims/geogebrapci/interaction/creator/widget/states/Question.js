@@ -159,6 +159,7 @@ define([
 
         Sform.find("#saveB64").on("click", function() {
             //interaction.triggerPci('saveB64Change', [$(this).prop("checked")]); // Send it to AMD for action
+            alert("By disabling this option, GeoGebra will save the test taker\’s answer and score. However, the state of the application\’s interactive elements will be reset each time the item is reloaded during a non-linear test, or during test review. This will reduce the volume of results but you won\’t be able to analyze the test taker\’s input in detail.")
             interaction.properties.resp.data = $(this).prop("checked");
 
         });

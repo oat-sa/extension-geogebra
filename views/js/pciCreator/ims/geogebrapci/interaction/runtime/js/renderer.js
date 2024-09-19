@@ -16,7 +16,7 @@ define(['taoQtiItem/portableLib/jquery_2_1_1',
 
     function renderChoices(pciObj, $container, config) {
 
-        console.log("CONTROL EDIT 2024")
+        console.log("CONTROL EDIT 2024 - reload Extension 4")
        
         instancer.ggb(pciObj, $container, config);
         

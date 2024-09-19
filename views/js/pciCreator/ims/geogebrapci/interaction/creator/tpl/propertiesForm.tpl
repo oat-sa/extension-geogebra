@@ -169,8 +169,13 @@
 </div>
 
 <div>
-    <input type="checkbox" name="saveB64" id="saveB64"> <label for="saveB64"> Save GGB-file (B64)</label><br>
-    <!-- <input type="checkbox" name="ggbFormatedAnswers" id="ggbFormatedAnswers"> <label for="ggbFormatedAnswers">Use GGB PCI scoring system</label> -->
+    <input type="checkbox" name="saveB64" id="saveB64">
+    <label for="saveB64"> Save GGB-file (B64)</label>
+    <span class="icon-help tooltipstered" data-tooltip="~ .tooltip-content:first" data-tooltip-theme="info"></span>
+    <div class="tooltip-content">{{__ 'Enable this option to allow test takers to retrieve the last state of the application\'s interactive elements when returning to an item during a non-linear test, or during test review. You can disable this option in linear tests to reduce the volume of results, but you won\'t be able to analyze the test taker\'s input in detail
+.'}}
+    </div>
+    
 </div>
 
 
@@ -194,7 +199,7 @@
 
     <hr>
 
-    <div style="font-size: x-small;">Any question ?<br /> <a href="mailto:jean-philippe.riviere@geogebra.org ?subject=GGB PCI contact">jean-philippe.riviere@geogebra.org</a>
+    <div style="font-size: x-small;">Any question ?<br /> <a href="mailto:jean.philippe.riviere@gmail.com ?subject=GGB PCI contact">Jean-Philippe Riviere</a>
     </div>
 
 

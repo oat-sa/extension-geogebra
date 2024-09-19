@@ -4,7 +4,7 @@
     "label": "GeoGebra for Teaching and Learning Math",
     "short": "GeoGebra",
     "description": "GeoGebra for Teaching and Learning Math",
-    "version": "1.1.0",
+    "version": "1.2.1",
     "author": "Jean-Philippe Riviere",
     "email": "jean.philippe.riviere@gmail.com",
     "tags": [
@@ -21,12 +21,14 @@
                 "interaction/runtime/js/GGBInteraction.min.js"
             ]
         },
+        "stylesheets" : [
+            "./interaction/runtime/css/wggb.css"
+        ],
         "src": [
             "./interaction/runtime/js/GGBInteraction.js",
             "./interaction/runtime/js/renderer.js",
             "./interaction/runtime/js/instancer.js",
-            "./interaction/runtime/js/lib/deployggb.js",
-            "./interaction/runtime/css/wggb.css"
+            "./interaction/runtime/js/lib/deployggb.js"
         ]
     },
     "creator": {

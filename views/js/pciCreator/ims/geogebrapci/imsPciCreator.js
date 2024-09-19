@@ -64,7 +64,7 @@ define([
                 },
                 resp: {
                     answerSet : true,
-                    data : false
+                    data : true
                 }
             };
         },
