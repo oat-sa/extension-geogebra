@@ -346,7 +346,7 @@ define([
                    to the response and pass it to the config.
                    */
 
-                if (typeof response.record[4] === 'object') {
+                if (response.record && typeof response.record[4] === 'object') {
                     $(this.dom).find('.GGBPCI').empty();
                     this.config.ggbfile = response.record[4].base.string;
                     renderer.render(this, this.dom, this.config);
@@ -427,7 +427,7 @@ define([
 
             //tell the rendering engine that I am ready
             if (typeof config.onready === 'function') {
-                config.onready(instance, instance.getState());
+                config.onready(instance, state);
             }
         }
     };
