@@ -13,7 +13,7 @@ define(['GGBPCI/interaction/runtime/js/lib/deployggb'], function(GGBApplet) {
     'use strict';
 
     function instancer(pciObj, $container, config) {
-       
+        // console.log("Track GGB-Assessment true")
         var ggbdom = "ggb_" + Date.now();
         $container.find(".GGBPCI").append('<div class=' + ggbdom + '></div>');
 
@@ -82,8 +82,14 @@ define(['GGBPCI/interaction/runtime/js/lib/deployggb'], function(GGBApplet) {
                     appletOnLoad: function(api) {
                         if (typeof pciObj.editorApplet === 'undefined') {
                             pciObj.editorApplet = api;
+                            console.log(pciObj.editorApplet)
+                            if(pciObj.editorApplet.exists("assessment"))
+                            {pciObj.editorApplet.setValue("assessment", true)}
                         } else {
                             pciObj.editorApplet = api;
+                            console.log(pciObj.editorApplet)
+                            if(pciObj.editorApplet.exists("assessment"))
+                            {pciObj.editorApplet.setValue("assessment", true)}
                         }
                     }
                 }, true);
@@ -120,13 +126,18 @@ define(['GGBPCI/interaction/runtime/js/lib/deployggb'], function(GGBApplet) {
                     appletOnLoad : function(api) {
                         if (typeof pciObj.editorApplet === 'undefined') {
                             pciObj.editorApplet = api;
+                            if(pciObj.editorApplet.exists("assessment"))
+                            {pciObj.editorApplet.setValue("assessment", true)}
                         } else {
                             pciObj.editorApplet = api;
+                              if(pciObj.editorApplet.exists("assessment"))
+                            {pciObj.editorApplet.setValue("assessment", true)}
                         }
                     }
                 }, true);
                 ggbApp.inject(ggbdom);
                 cssCorrecter();
+               
             }
         }
 
@@ -162,8 +173,12 @@ define(['GGBPCI/interaction/runtime/js/lib/deployggb'], function(GGBApplet) {
                 appletOnLoad(api) {
                     if (typeof pciObj.previewApplet === 'undefined') {
                         pciObj.previewApplet = api;
+                        if(pciObj.previewApplet.exists("assessment"))
+                            {pciObj.previewApplet.setValue("assessment", true)}
                     } else {
                         pciObj.previewApplet = api;
+                       if(pciObj.previewApplet.exists("assessment"))
+                            {pciObj.previewApplet.setValue("assessment", true)}
                     }                   
                 }
             }, true);

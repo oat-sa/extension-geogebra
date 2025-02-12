@@ -4,15 +4,15 @@
     "label": "GeoGebra for Teaching and Learning Math",
     "short": "GeoGebra",
     "description": "GeoGebra for Teaching and Learning Math",
-    "version": "1.0.1",
+    "version": "1.2.4",
     "author": "Jean-Philippe Riviere",
     "email": "jean.philippe.riviere@gmail.com",
     "tags": [
         "GeoGebra, math, geometry, 3D"
     ],
     "response": {
-        "baseType": "integer",
-        "cardinality": "single"
+        "baseType": "record",
+        "cardinality": "record"
     },
     "runtime": {
         "hook": "interaction/runtime/js/GGBInteraction.min.js",
@@ -21,14 +21,12 @@
                 "interaction/runtime/js/GGBInteraction.min.js"
             ]
         },
-        "stylesheets": [
-            "./interaction/runtime/css/wggb.css"
-        ],
         "src": [
             "./interaction/runtime/js/GGBInteraction.js",
             "./interaction/runtime/js/renderer.js",
             "./interaction/runtime/js/instancer.js",
-            "./interaction/runtime/js/lib/deployggb.js"
+            "./interaction/runtime/js/lib/deployggb.js",
+            "./interaction/runtime/css/wggb.css"
         ]
     },
     "creator": {
@@ -38,12 +36,12 @@
             "./imsPciCreator.js",
             "./interaction/creator/tpl/markup.tpl",
             "./interaction/creator/tpl/propertiesForm.tpl",
+            "./interaction/creator/tpl/responseProcessing.tpl",
+            "./interaction/creator/helpers/responseProcessing.js",
             "./interaction/creator/widget/Widget.js",
             "./interaction/creator/widget/states/states.js",
             "./interaction/creator/widget/states/Question.js",
-            "./interaction/creator/widget/states/Answer.js",
-            "./interaction/creator/widget/states/Correct.js",
-            "./interaction/creator/widget/states/NoRp.js"
+            "./interaction/creator/widget/states/Answer.js"
         ]
     }
 }

@@ -11,33 +11,26 @@ define([
     'taoQtiItem/qtiCreator/widgets/states/factory',
     'taoQtiItem/qtiCreator/widgets/interactions/states/Answer',
     'taoQtiItem/qtiCreator/widgets/interactions/helpers/answerState',
-    'taoQtiItem/qtiCreator/widgets/helpers/content'
-], function(stateFactory, Answer, answerStateHelper) {
+    'GGBPCI/interaction/creator/helpers/responseProcessing',
+], function(stateFactory, Answer, answerStateHelper, responseProcessingHelpers) {
 
-    var GGBPCIStateAnswer = stateFactory.extend(Answer, function() {
-
-        //forward to one of the available sub state, according to the response processing template
-        answerStateHelper.forward(this.widget, {
-            rpTemplates: ['NONE', 'MATCH_CORRECT'],
-        });
-        var interaction = this.widget.element;
-
-        //interaction.triggerPci('RProcessingChange', ["answer"]); // Send it to AMD for action
-        //var responseDeclaration = interaction.getResponseDeclaration();
-
-    }, function() {
-
+    var GGBPCIStateAnswer = stateFactory.extend(Answer, function initAnswerState() {
+        // set it to the answer state
+        console.log("STATE::ANSWER::ENTER");
+    }, function exitAnswerState() {
+        // exit the answer state
+        console.log("STATE::ANSWER::EXIT");
     });
 
     GGBPCIStateAnswer.prototype.initResponseForm = function initResponseForm() {
+        // Remove any possibility to change the response processing template
+        answerStateHelper.initResponseForm(this.widget, { rpTemplates: ['CUSTOM'] });
 
-        var interaction = this.widget.element;
-        interaction.resetResponse();
-
-        answerStateHelper.initResponseForm(
-            this.widget, {
-                rpTemplates: ['NONE', 'MATCH_CORRECT'],
-            }
+        // Make sure to update the response processing when the identifier is changed
+        this.widget.$responseForm.on(
+            'change.databinding keyup.databinding',
+            'input[name="identifier"]',
+            () => responseProcessingHelpers.setResponseProcessing(this.widget.element)
         );
     };
 

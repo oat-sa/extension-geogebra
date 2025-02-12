@@ -10,28 +10,22 @@ define([
     'taoQtiItem/qtiCreator/widgets/states/factory',
     'taoQtiItem/qtiCreator/widgets/interactions/states/Question',
     'taoQtiItem/qtiCreator/widgets/helpers/formElement',
-    'taoQtiItem/qtiCreator/editor/simpleContentEditableElement',
-    'taoQtiItem/qtiCreator/editor/containerEditor',
+    'GGBPCI/interaction/creator/helpers/responseProcessing',
     'tpl!GGBPCI/interaction/creator/tpl/propertiesForm',
     'lodash',
     'taoQtiItem/portableLib/jquery_2_1_1',
-], function(stateFactory, Question, formElement, simpleEditor, containerEditor, formTpl, _, $) {
+], function(stateFactory, Question, formElement, responseProcessingHelpers, formTpl, _, $) {
     'use strict';
 
-    var GGBPCIStateQuestion = stateFactory.extend(Question, function () {
-
-
-        console.log("STATEFACTORY 2 : First code to be read")
-
-
-    }, function () {
-
-        console.log("STATEFACTORY 1 : it is coming at the end of the loading")
-
-       
+    var GGBPCIStateQuestion = stateFactory.extend(Question, function initQuestionState() {
+        // set it to the question state
+        console.log("STATE::QUESTION::ENTER");
+    }, function exitQuestionState() {
+        // exit the question state
+        console.log("STATE::QUESTION::EXIT");
     });
 
-    GGBPCIStateQuestion.prototype.initForm = function() {
+    GGBPCIStateQuestion.prototype.initForm = function initForm() {
 
         //Rappel : interaction.prop() is a setter for config in renderer
         // interaction.properties = config in render
@@ -57,24 +51,6 @@ define([
             param_saveB64 = interaction.prop('resp').data,
             param_AnswerSet = interaction.prop('resp').answerSet;
 
-       
-     
-
-        //response.correctResponse = 1
-        
-        var correct = _.values(interaction.getResponseDeclaration().getCorrect());
-
-        //This is the responseDeclaration in XML
-        //It should be conditionnal : if MCorrect or None
-        var responseDeclaration = interaction.getResponseDeclaration();
-        if (interaction.prop('param').RProcessing == "MCorrect") {
-            responseDeclaration.template == "http://www.imsglobal.org/question/qti_v2p1/rptemplates/match_correct"
-        }
-        if (responseDeclaration.template == "http://www.imsglobal.org/question/qti_v2p1/rptemplates/match_correct") {
-            responseDeclaration.setCorrect([1]);
-        } else {
-            responseDeclaration.attributes.baseType = "string"
-        }
         //render the form using the form template
         Sform.html(formTpl({
             serial: response.serial,
@@ -86,16 +62,14 @@ define([
 
 
 
-        $(".saveAppData").on("click", function() {   
-            
+        $(".saveAppData").on("click", function() {
             interaction.properties.state = "modified";
             interaction.properties.param.filename="saved";
-             
+
             interaction.triggerPci('dataChange', [interaction.properties]); // Send it to AMD for action
-           
         })
 
-        
+
 
         //Accordion system -> paramters group
         Sform.find(".paramSection").on("click", function() {
@@ -130,7 +104,6 @@ define([
             let toggle = $(this).prop("checked");
             interaction.properties.param.showMenuBar = toggle;
             interaction.triggerPci('MenubarChange', [toggle]); // Send it to AMD for action
-
         })
 
         Sform.find("#ToolBar").on("click", function() {
@@ -144,7 +117,6 @@ define([
             let toggle = $(this).prop("checked");
             interaction.triggerPci('RightClickChange', [toggle]); // Send it to AMD for action
             interaction.properties.param.enableRightClick = toggle;
-
         })
 
 
@@ -183,11 +155,11 @@ define([
             interaction.properties.param.enableUndoRedo = GGBConfig.UndoRedo;
 
             interaction.triggerPci('appChange', [GGBConfig]); // Send it to AMD for action
-            
         });
 
         Sform.find("#saveB64").on("click", function() {
             //interaction.triggerPci('saveB64Change', [$(this).prop("checked")]); // Send it to AMD for action
+            alert("By disabling this option, GeoGebra will save the test taker\’s answer and score. However, the state of the application\’s interactive elements will be reset each time the item is reloaded during a non-linear test, or during test review. This will reduce the volume of results but you won\’t be able to analyze the test taker\’s input in detail.")
             interaction.properties.resp.data = $(this).prop("checked");
 
         });
@@ -208,11 +180,12 @@ define([
 
 
 
-        //init data change callbacks
+        // Make sure to update the response processing when the identifier is changed
         formElement.setChangeCallbacks(Sform, interaction, {
-            identifier: function(i, value) {
+            identifier(i, value) {
                 response.id(value);
                 interaction.attr('responseIdentifier', value);
+                responseProcessingHelpers.setResponseProcessing(interaction);
             }
         });
 
