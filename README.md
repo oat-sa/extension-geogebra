@@ -10,12 +10,12 @@ Go to the root of your TAO application.
 
 Launch a composer command : composer require janfix/extension-geogebra:v1.2.1
 
+
+Once the download is done, go to your TAO application (you need admin rights) go to the extension manager and activate the GeoGebra extension.
+
+# Licence :
+Available under the [GeoGebra License](https://www.geogebra.org/license)
+
+Please email [office@geogebra.org](mailto:office@geogebra.org) for terms of commercial use
+
 Once the download is done, go to your TAO application (you need the admin rights) go to the extension manager and activate de GeoGebra extension.
-
-# More info for this version
-If you want more details go to : https://www.geogebra.org/m/cwbstkcr
-
-# This last update...
-Version 1.2.1 fixed 2 problems : 
-1. The answering system will now catch values of variables defined in GeoGebra to encode the answer. Ask GeoGebra for more info on this point.
-2. In case of a non linear test, the test-taker can retreive his own work while browsing throught the items. The state of GeoGebra is now preserved. 
