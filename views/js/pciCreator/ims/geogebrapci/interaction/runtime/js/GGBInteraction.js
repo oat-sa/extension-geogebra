@@ -98,6 +98,11 @@ define([
                     };
                 }
 
+                // either no applet, or applet didn't finish initializing yet
+                if (this.initialResponse) {
+                    return this.initialResponse;
+                }
+
                 // no applet, no response, but it still needs to be QTI valid
                 return { base: null };
             },
@@ -424,6 +429,10 @@ define([
                 config.assetManager
             );
             instance.setSerializedState(state);
+
+            if (state && state.response) {
+                instance.initialResponse = state.response;
+            }
 
             //tell the rendering engine that I am ready
             if (typeof config.onready === 'function') {
