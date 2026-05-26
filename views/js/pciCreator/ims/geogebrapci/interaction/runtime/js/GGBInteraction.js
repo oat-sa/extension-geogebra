@@ -89,7 +89,7 @@ define([
 
                             // variables are either integers or strings (be sure to JSON encode them if needed)
                             if (typeof value[name] === 'number') {
-                                base.integer = value[name];
+                                base.integer = value[name] || 0; // convert NaN to 0
                             } else {
                                 base.string = value[name];
                             }
